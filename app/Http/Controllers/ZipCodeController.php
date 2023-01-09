@@ -53,11 +53,11 @@ class ZipCodeController extends Controller
         }
         return [
             "zip_code" => $data[0]->d_codigo,
-            "locality" => $data[0]->d_ciudad,
+            "locality" => $data[0]->d_ciudad ?? '',
             "federal_entity" => [
                 "key" => $data[0]->c_estado,
                 "name" => $data[0]->d_estado,
-                "code" => $data[0]->c_cp
+                "code" => $data[0]->c_cp ?? ''
             ],
             "settlements" => [$settlements],
             "municipality" => [
