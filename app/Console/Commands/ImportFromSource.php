@@ -52,19 +52,19 @@ class ImportFromSource extends Command
                 if ($key != 0) {
                     ZipCodeStates::create([
                         'd_codigo' => $row[0] ?? '',
-                        'd_asenta' => $row[1] ?? '',
+                        'd_asenta' => strtoupper($this->formatString($row[1])) ?? '',
                         'd_tipo_asenta' => $row[2] ?? '',
                         'd_mnpio' => $row[3] ?? '',
-                        'd_estado' => $row[4] ?? '',
-                        'd_ciudad' => $row[5] ?? '',
+                        'd_estado' => strtoupper($this->formatString($row[4])) ?? '',
+                        'd_ciudad' => strtoupper($this->formatString($row[5])) ?? '',
                         'd_cp' => $row[6] ?? '',
-                        'c_estado' => $row[7] ?? '',
+                        'c_estado' => $this->formatString($row[7]) ?? '',
                         'c_oficina' => $row[8] ?? '',
                         'c_cp' => $row[9] ?? '',
                         'c_tipo_asenta' => $row[10] ?? '',
                         'c_mnpio' => $row[11] ?? '',
                         'id_asenta_cpcons' => $row[12] ?? '',
-                        'd_zona' => $row[13] ?? '',
+                        'd_zona' => strtoupper($this->formatString($row[13])) ?? '',
                         'c_cve_ciudad' => $row[14] ?? '',
                     ]);
                 }
@@ -74,5 +74,44 @@ class ImportFromSource extends Command
 
 
         return Command::SUCCESS;
+    }
+
+    function formatString($string){
+
+
+
+        $string = str_replace(
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            $string
+        );
+
+        $string = str_replace(
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            $string );
+
+        $string = str_replace(
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            $string );
+
+        $string = str_replace(
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            $string );
+
+        $string = str_replace(
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            $string );
+
+        $string = str_replace(
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('n', 'N', 'c', 'C'),
+            $string
+        );
+
+        return $string;
     }
 }
