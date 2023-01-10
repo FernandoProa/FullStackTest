@@ -21,12 +21,12 @@ return new class extends Migration {
             $table->string('d_estado')->nullable();
             $table->string('d_ciudad')->nullable();
             $table->string('d_cp')->nullable();
-            $table->string('c_estado')->nullable();
+            $table->unsignedBigInteger('c_estado')->nullable();
             $table->string('c_oficina')->nullable();
             $table->string('c_cp')->nullable();
             $table->string('c_tipo_asenta')->nullable();
-            $table->string('c_mnpio')->nullable();
-            $table->string('id_asenta_cpcons')->nullable();
+            $table->unsignedBigInteger('c_mnpio')->nullable();
+            $table->unsignedBigInteger('id_asenta_cpcons')->nullable();
             $table->string('d_zona')->nullable();
             $table->string('c_cve_ciudad')->nullable();
             $table->timestamps();
